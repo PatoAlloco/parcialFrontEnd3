@@ -8,12 +8,12 @@
 
 import React from 'react'
 
-export default function Cabecera(props) {
+export default function Cabecera(props) {  //recibo por props el metodo para sumar que esta en App y lo muestro en el <p>
   
   return (
     <header>
       <h1>Carrito de compras</h1>
-      <p>Cantidad de productos: <span> {props.productosComprados} </span></p>
+      <p>Cantidad de productos: <span> {props.productosComprados} </span></p> 
     </header>
   )
 }
