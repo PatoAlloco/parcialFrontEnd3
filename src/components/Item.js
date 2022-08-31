@@ -1,4 +1,3 @@
-
 // El componente Item no tiene componentes hijos.
 // ESTADO: Item debe tener un número para almacenar la cantidad de stock, la misma se la defina el padre a la hora de crearlo.
 // MÉTODOS: Item debe manejar el click de su boton para restar la cantidad en stock de sí mismo y a su vez poder aumentar el estado de su "abuelo" App.
@@ -8,12 +7,34 @@
 //    p
 //    h5 > span    (este span debe mostrar la cantidad si es mayor a 0 "agotado" si llega a 0)
 //    button       (este boton debe permitir comprar, pero si la cantidad es menor a 0 debe estar deshabilitado y decir "Sin stock")
+import React from "react"
+import { useState } from "react"
 
-export default function Item() {
+export default function Item(props) {
+
+  const [cantStock, setCantStock] = useState(props.stock)
+  const [textoBoton, setTextoBoton] = useState('comprar')
+  const [bandera, setBandera] = useState(false) 
+
+  if(cantStock < 1){
+    setCantStock(<span>Agotado</span>)
+    setTextoBoton("Sin Stock")
+    setBandera(true)
+  }
+
+  const comprar = () => {
+    if (cantStock > 0){
+    setCantStock(cantStock - 1)
+    props.suma()
+    }
+  }
 
   return (
     <div className='producto'>
-      {/* maquetar Item aquí */}
+      <h3>{props.nombre}</h3>
+      <p>{props.descripcion}</p>
+      <h5>Stock: {cantStock}</h5>
+      <button disabled={bandera} onClick={comprar}>{textoBoton}</button>
     </div>
   )
 }
